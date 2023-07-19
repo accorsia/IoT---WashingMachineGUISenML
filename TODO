@@ -1,0 +1,9 @@
+1) Implement a separate DataCollector that Observes both sensors and actuators.
+
+2) Store history as SenML records: serialize and deserialize items in the LinkedList as SenML Objects.
+
+3) Custom messages as non-Strings --> serialized objects.
+
+- Input (Plan commands) --> JSON
+- Output (JSON) instead of strings ("Motor is still ON"):
+serialized/deserialized object in JSON format containing ErrorCode, MessageCode.
