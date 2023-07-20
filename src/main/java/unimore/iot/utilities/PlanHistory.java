@@ -39,7 +39,6 @@ public class PlanHistory {
     public void increaseDelicati(MotorActuator currentMotor) {
         SingleWash currentWash = new SingleWash(currentMotor.getId(), System.currentTimeMillis(), PlanRequest.DELICATI, currentMotor.toString());
         history.add(SW2ML(currentWash));
-        history.add(SW2ML(currentWash));
 
         delicatiCount++;
         totalCount++;
@@ -79,7 +78,7 @@ public class PlanHistory {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public static String myString() {
+    public static String getPlanCounter() {
         StringBuilder sb = new StringBuilder();
 
         //  first part
@@ -97,10 +96,6 @@ public class PlanHistory {
                 .append(totalCount).append("}\n");
 
         sb.append("\n*** Plan log ***\n");
-
-        /*for(String singleHistoryItem: history)
-            sb.append(singleHistoryItem)
-                    .append("\n");*/
 
         return sb.toString();
     }

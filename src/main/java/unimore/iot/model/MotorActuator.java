@@ -210,7 +210,7 @@ public class MotorActuator {
                 ", soap=" + soap +
                 ", currentProgram='" + currentProgram + '\'' +
                 ", weightSensor=" + weightSensor.getWeight() +
-                ", temperatureSensor=" + temperatureSensor.getTemp() +
+                ", temperatureSensor=" + temperatureSensor.getTemperature() +
                 ", doorActuator=" + doorActuator.getStatus() +
                 '}';
     }

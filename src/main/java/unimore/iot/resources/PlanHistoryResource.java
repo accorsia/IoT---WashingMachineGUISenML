@@ -33,7 +33,9 @@ public class PlanHistoryResource extends CoapResource {
     public void handleGET(CoapExchange exchange) {
         try
         {
-            String responseBody = this.gson.toJson(this.planHistory);
+            String responseBody = PlanHistory.getPlanCounter(); //  add counter at the start of the output
+            responseBody += this.gson.toJson(this.planHistory);
+
             exchange.respond(CoAP.ResponseCode.CONTENT, responseBody, MediaTypeRegistry.APPLICATION_JSON);
         }
         catch (Exception e)

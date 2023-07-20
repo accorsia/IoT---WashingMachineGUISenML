@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class TemperatureSensor {
     private long timestamp;
-    private double temp;
+    private double temperature;
     private final String unit = "C";
     int idTemperature;
 
@@ -18,25 +18,24 @@ public class TemperatureSensor {
     public TemperatureSensor(int idTemperature) {
         this.random = new Random();
         this.timestamp = System.currentTimeMillis();
-
         this.idTemperature = idTemperature;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    //  Update temperature temp
+    //  Update temperature temperature
     public double measureTemperatureValue() {
-        this.temp = TEMPERATURE_START_VALUE + this.random.nextInt(TEMPERATURE_VALUE_BOND);
+        this.temperature = TEMPERATURE_START_VALUE + this.random.nextInt(TEMPERATURE_VALUE_BOND);
         this.timestamp = System.currentTimeMillis();
 
-        return temp;
+        return temperature;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    public double getTemp() {
-        return temp;
+    public double getTemperature() {
+        return temperature;
     }
 
 }
