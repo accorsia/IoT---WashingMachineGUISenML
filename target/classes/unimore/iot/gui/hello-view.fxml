@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="494.0" prefWidth="471.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="unimore.iot.gui.HelloController">
+<Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="665.0" prefWidth="471.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="unimore.iot.gui.HelloController">
    <children>
       <Button fx:id="createBtn" layoutX="317.0" layoutY="20.0" mnemonicParsing="false" onAction="#createServers" prefHeight="25.0" prefWidth="94.0" text="CREATE">
          <font>
@@ -43,5 +43,6 @@
       <Button fx:id="getHistoryBtn" layoutX="114.0" layoutY="168.0" mnemonicParsing="false" onAction="#getHistory" prefHeight="25.0" prefWidth="76.0" text="GET history" />
       <Separator layoutX="26.0" layoutY="247.0" prefHeight="4.0" prefWidth="424.0" />
       <Button fx:id="openDoorBtn" layoutX="189.0" layoutY="168.0" mnemonicParsing="false" onAction="#openDoor" text="OPEN door" />
+      <TextArea fx:id="terminalObs" layoutX="26.0" layoutY="495.0" prefHeight="164.0" prefWidth="416.0" />
    </children>
 </Pane>

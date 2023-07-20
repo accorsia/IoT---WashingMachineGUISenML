@@ -9,7 +9,7 @@ import java.util.LinkedList;
 
 public class PlanHistory {
 
-    private Gson gson;
+    private static Gson gson;
 
     private static int delicatiCount;
     private static int sinteticiCount;
@@ -19,13 +19,12 @@ public class PlanHistory {
 
     private static int totalCount;
 
-    public static LinkedList<String> history = new LinkedList<String>();
+    public static LinkedList<String> history = new LinkedList<>();
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
     public PlanHistory() {
-        this.gson = new Gson();
+        gson = new Gson();
     }
 
     public static LinkedList<String> getHistory() {

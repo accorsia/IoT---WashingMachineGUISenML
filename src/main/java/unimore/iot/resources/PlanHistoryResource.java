@@ -7,6 +7,7 @@ import org.eclipse.californium.core.coap.MediaTypeRegistry;
 import org.eclipse.californium.core.server.resources.CoapExchange;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import unimore.iot.model.MotorActuator;
 import unimore.iot.utilities.PlanHistory;
 import unimore.iot.utilities.SingleWash;
 
@@ -15,10 +16,9 @@ import java.util.LinkedList;
 public class PlanHistoryResource extends CoapResource {
     private final static Logger logger = LoggerFactory.getLogger(MotorActuatorResource.class);
     private static final String OBJECT_TITLE = "Plan History";
-    private Gson gson;
+    private final Gson gson;
 
-    private LinkedList<String> planHistory; //  list: all server machines history combined
-
+    private final LinkedList<String> planHistory; //  list: all server machines history combined
 
     public PlanHistoryResource(String name) {
         super(name);
@@ -26,16 +26,21 @@ public class PlanHistoryResource extends CoapResource {
         this.gson = new Gson();
 
         this.planHistory = PlanHistory.getHistory();
+
     }
 
-    //  GET --> String of the global history
     @Override
     public void handleGET(CoapExchange exchange) {
         try
         {
-            //  return text representation of the global history
-            String responseBody = PlanHistory.myString();
+            LinkedList<String> des = new LinkedList<>();
 
+            for(String val: this.planHistory)
+                des.add(this.gson.fromJson(val, SingleWash.class).toString());
+
+            //  return JSON representation of History (LinkedList<String>)
+            String responseBody = this.gson.toJson(this.planHistory);
+            responseBody = this.gson.toJson(des);
             exchange.respond(CoAP.ResponseCode.CONTENT, responseBody, MediaTypeRegistry.APPLICATION_JSON);
         }
         catch (Exception e)

@@ -17,7 +17,6 @@ import java.util.ResourceBundle;
 import static unimore.iot.utilities.Deb.*;
 
 public class HelloController implements Initializable {
-
     @FXML
 
     //  default: -1 --> if during the form execution they're still -1 --> user input failed\invalid
@@ -37,7 +36,10 @@ public class HelloController implements Initializable {
 
     public TextField createFld;
     public TextField selectFld;
+
     public TextArea terminal;
+    public TextArea terminalObs;    //  terminal for Observation pretty print
+
     public Button startMBtn;
 
     public ChoiceBox<String> planChoiceBox;
@@ -125,8 +127,10 @@ public class HelloController implements Initializable {
             ShowAlert("Error",
                     "Completa i 2 bottoni CREATE e SELECT",
                     "Completa la creazione dei server(s)");
-        else
+        else {
             terminal.setText(CoapPostClientProcess.run("motor", WmMultipleServer.getBasePort() + serverChoice));
+            startObservation();
+        }
     }
 
     public void getMotor(ActionEvent event) {
@@ -162,4 +166,9 @@ public class HelloController implements Initializable {
     public void openDoor(ActionEvent event) {
         terminal.setText(CoapPostClientProcess.run("door", WmMultipleServer.getBasePort() + serverChoice));
     }
+
+    public void startObservation() {
+        CoapObserveClientProcess.run("motor", WmMultipleServer.getBasePort() + serverChoice, terminalObs);
+    }
+
 }
