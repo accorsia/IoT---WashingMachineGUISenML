@@ -5,8 +5,6 @@ import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.core.coap.CoAP;
 import org.eclipse.californium.core.coap.MediaTypeRegistry;
 import org.eclipse.californium.core.server.resources.CoapExchange;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import unimore.iot.model.TemperatureSensor;
 
 public class TemperatureSensorResource extends CoapResource {

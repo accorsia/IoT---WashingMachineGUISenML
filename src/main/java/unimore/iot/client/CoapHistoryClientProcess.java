@@ -23,24 +23,20 @@ public class CoapHistoryClientProcess {
         Request request = new Request(CoAP.Code.GET);
         request.setConfirmable(true);
 
-        CoapResponse coapResp = null;
-
-        // Response
         try
         {
-            coapResp = coapClient.advanced(request);
-            if (coapResp != null && coapResp.isSuccess()) {
-                //String responseBody = coapResp.getResponseText();
-                System.out.printf("[GET] Response Pretty Print: \n%s%n", Utils.prettyPrint(coapResp));
+            //  Response
+            CoapResponse coapResp = coapClient.advanced(request);
 
-            } else {
-                System.out.println("[GET] Error: Failed to get a valid response.");
-            }
-        } catch (ConnectorException | IOException e) {
+            String prettyPrint = "==[ GET (history) ]====================================================\n" + Utils.prettyPrint(coapResp);
+            System.out.println(prettyPrint);
+            return prettyPrint;
+        }
+        catch (ConnectorException | IOException e) {
             e.printStackTrace();
         }
-        
-        return Utils.prettyPrint(coapResp);
+
+        return null;
     }
 
 }

@@ -8,10 +8,8 @@ import org.eclipse.californium.core.coap.MediaTypeRegistry;
 import org.eclipse.californium.core.server.resources.CoapExchange;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import unimore.iot.model.MotorActuator;
 import unimore.iot.serialization.SenMLRecord;
 import unimore.iot.utilities.PlanHistory;
-import unimore.iot.utilities.SingleWash;
 
 import java.util.LinkedList;
 
@@ -25,7 +23,7 @@ public class PlanHistoryResource extends CoapResource {
     public PlanHistoryResource(String name) {
         super(name);
         getAttributes().setTitle(OBJECT_TITLE);
-        this.gson = new GsonBuilder().disableHtmlEscaping().create();;
+        this.gson = new GsonBuilder().disableHtmlEscaping().create();
 
         this.planHistory = PlanHistory.getHistory();
 

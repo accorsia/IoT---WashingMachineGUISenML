@@ -5,17 +5,13 @@ import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.core.coap.CoAP;
 import org.eclipse.californium.core.coap.MediaTypeRegistry;
 import org.eclipse.californium.core.server.resources.CoapExchange;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import unimore.iot.model.WeightSensor;
 
 public class WeightSensorResource extends CoapResource {
-
-    private final static Logger logger = LoggerFactory.getLogger(WeightSensorResource.class);
     private static final String OBJECT_TITLE = "WeightSensor";
     private final Gson gson;
 
-    private WeightSensor weightSensor;
+    private final WeightSensor weightSensor;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -35,7 +31,6 @@ public class WeightSensorResource extends CoapResource {
         try
         {
             //  Already updated by MotorActuator.startPlan()
-
             String responseBody = this.gson.toJson(this.weightSensor);
             exchange.respond(CoAP.ResponseCode.CONTENT, responseBody, MediaTypeRegistry.APPLICATION_JSON);
         }

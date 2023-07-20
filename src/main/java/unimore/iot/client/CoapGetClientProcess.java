@@ -27,18 +27,20 @@ public class CoapGetClientProcess {
         request.setOptions(new OptionSet().setAccept(MediaTypeRegistry.APPLICATION_JSON));
         request.setConfirmable(true);
 
-        //  Response
-        CoapResponse coapResp = null;
-
         try
         {
-            coapResp = coapClient.advanced(request);
-            System.out.printf("[GET] Response Pretty Print: \n%s%n", Utils.prettyPrint(coapResp));
-        } catch (ConnectorException | IOException e) {
+            //  Response
+            CoapResponse coapResp = coapClient.advanced(request);
+
+            String prettyPrint = "==[ GET ]====================================================\n" + Utils.prettyPrint(coapResp);
+            System.out.println(prettyPrint);
+            return prettyPrint;
+        }
+        catch (ConnectorException | IOException e) {
             e.printStackTrace();
         }
 
-        return Utils.prettyPrint(coapResp);
+        return null;
     }
 
 }

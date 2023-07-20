@@ -23,17 +23,19 @@ public class CoapPostClientProcess {
         Request request = new Request(CoAP.Code.POST);
         request.setConfirmable(true);
 
-        System.out.printf("[POST] Request Pretty Print: \n%s%n", Utils.prettyPrint(request));
-        CoapResponse coapResp = null;
-        //  Send request
         try
         {
-            coapResp = coapClient.advanced(request);
-            System.out.printf("[POST] Response Pretty Print: \n%s%n", Utils.prettyPrint(coapResp));
-        } catch (ConnectorException | IOException e) {
+            //  Response
+            CoapResponse coapResp = coapClient.advanced(request);
+
+            String prettyPrint = "==[ POST ]====================================================\n" + Utils.prettyPrint(coapResp);
+            System.out.println(prettyPrint);
+            return prettyPrint;
+        }
+        catch (ConnectorException | IOException e) {
             e.printStackTrace();
         }
 
-        return Utils.prettyPrint(coapResp);
+        return null;
     }
 }

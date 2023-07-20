@@ -30,19 +30,19 @@ public class CoapPutClientProcess {
         request.setPayload(requestPayload);
         request.setConfirmable(true);
 
-        System.out.printf("[PUT] Request Pretty Print: \n%s%n", Utils.prettyPrint(request));  //    debug request
-
-        //  send Request --> get Response
-        CoapResponse coapResp = null;
-
         try
         {
-            coapResp = coapClient.advanced(request);
-            System.out.printf("[PUT] Response Pretty Print: \n%s%n", Utils.prettyPrint(coapResp));   // debug response
-        } catch (ConnectorException | IOException e) {
+            //  Response
+            CoapResponse coapResp = coapClient.advanced(request);
+
+            String prettyPrint = "==[ PUT ]====================================================\n" + Utils.prettyPrint(coapResp);
+            System.out.println(prettyPrint);
+            return prettyPrint;
+        }
+        catch (ConnectorException | IOException e) {
             e.printStackTrace();
         }
 
-        return Utils.prettyPrint(coapResp);
+        return null;
     }
 }
