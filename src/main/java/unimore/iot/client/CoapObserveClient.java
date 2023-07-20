@@ -6,35 +6,35 @@ import org.eclipse.californium.core.coap.Request;
 public class CoapObserveClient {
 
     private CoapObserveRelation relation = null;
-    private String target;
+    private String target;      //  target resource name
+    private String prettyPrint; //  target var
 
     public String run(String passedResource, int serverPort, TextArea textArea) {
         System.out.println("\n--- Starting to observe '" + passedResource + "' ---\n");
         this.target = passedResource;
+
         //  Set Endpoint with right port
         String COAP_ENDPOINT = "coap://127.0.0.1:" + serverPort + "/";
 
-        String targetCoapResourceURL = COAP_ENDPOINT + passedResource;   //  resource target uri
-        CoapClient client = new CoapClient(targetCoapResourceURL);  //  unimore.iot.client
+        //  Target resource
+        String targetCoapResourceURL = COAP_ENDPOINT + passedResource;   //  uri
+        CoapClient client = new CoapClient(targetCoapResourceURL);
 
         //  Request
         Request request = Request.newGet().setURI(targetCoapResourceURL).setObserve();
         request.setConfirmable(true);
 
-        //  Observation action
-        StringBuilder prettyPrintBuilder = new StringBuilder();
+        //  Observation relation
         relation = client.observe(request, new CoapHandler() {
             @Override
             public void onLoad(CoapResponse coapResponse) {
-                String prettyPrint = Utils.prettyPrint(coapResponse);
+                prettyPrint = Utils.prettyPrint(coapResponse);
 
                 System.out.println("[OBSERVATION]\n");
                 System.out.println(prettyPrint);
 
                 if (textArea != null)
                     textArea.setText(prettyPrint.replace("Response", "Observation"));
-
-                prettyPrintBuilder.append(prettyPrint);
             }
 
             @Override
@@ -43,7 +43,7 @@ public class CoapObserveClient {
             }
         });
 
-        return prettyPrintBuilder.toString(); // Return the accumulated pretty print as a string
+        return prettyPrint;
     }
 
     public void stopObservation() {

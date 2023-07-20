@@ -11,6 +11,8 @@ public class PlanRequest {
     public static final String LANA = "lana";
     public static final String RISCIACQUO = "risciacquo";
 
+    public static final String STOP = "stop";
+
     //  rpm
     public static final int HIGH_VELOCITY = 1400;
     public static final int MEDIUM_VELOCITY = 800;

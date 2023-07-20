@@ -193,6 +193,8 @@ public class MotorActuator {
         this.water = 0;
         this.soap = 0;
         this.currentProgram = null;
+
+        System.out.println(Deb.debHelp() + "Stopping engine...Motor OFF");
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

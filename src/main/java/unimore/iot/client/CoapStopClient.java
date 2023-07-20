@@ -1,11 +1,14 @@
 package unimore.iot.client;
 
+import com.google.gson.Gson;
 import org.eclipse.californium.core.CoapClient;
 import org.eclipse.californium.core.CoapResponse;
 import org.eclipse.californium.core.Utils;
 import org.eclipse.californium.core.coap.CoAP;
 import org.eclipse.californium.core.coap.Request;
 import org.eclipse.californium.elements.exception.ConnectorException;
+import unimore.iot.request.IotRequest;
+import unimore.iot.request.PlanRequest;
 
 import java.io.IOException;
 
@@ -25,8 +28,9 @@ public class CoapStopClient {
         Request request = new Request(CoAP.Code.PUT);
 
         //  Set payload
-        String requestPayload = "stop";
-        request.setPayload(requestPayload.getBytes());
+        Gson gson = new Gson();
+        String requestPayload = gson.toJson(new IotRequest(PlanRequest.STOP));
+        request.setPayload(requestPayload);
         request.setConfirmable(true);
 
         try

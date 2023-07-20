@@ -7,6 +7,7 @@ import org.eclipse.californium.core.Utils;
 import org.eclipse.californium.core.coap.CoAP;
 import org.eclipse.californium.core.coap.Request;
 import org.eclipse.californium.elements.exception.ConnectorException;
+import unimore.iot.request.IotRequest;
 import unimore.iot.request.PlanRequest;
 
 import java.io.IOException;
@@ -24,9 +25,9 @@ public class CoapPutClient {
         //  Request
         Request request = new Request(CoAP.Code.PUT);
 
-        //  Set payload
+        //  Set payload: serialized 'IotRequest' obj.
         Gson gson = new Gson();
-        String requestPayload = gson.toJson(new PlanRequest(passedProgram));   //  --- eg: COTONE ---
+        String requestPayload = gson.toJson(new IotRequest(passedProgram));
         request.setPayload(requestPayload);
         request.setConfirmable(true);
 
