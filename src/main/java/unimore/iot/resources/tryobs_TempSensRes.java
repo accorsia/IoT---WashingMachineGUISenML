@@ -5,27 +5,35 @@ import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.core.coap.CoAP;
 import org.eclipse.californium.core.coap.MediaTypeRegistry;
 import org.eclipse.californium.core.server.resources.CoapExchange;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import unimore.iot.model.TemperatureSensor;
+import unimore.iot.model.tryobs_TempSens;
 
-public class TemperatureSensorResource extends CoapResource {
+public class tryobs_TempSensRes extends CoapResource {
 
-    private final static Logger logger = LoggerFactory.getLogger(TemperatureSensorResource.class);
     private static final String OBJECT_TITLE = "TemperatureSensor";
-    private Gson gson;
+    private final Gson gson;
 
-    private TemperatureSensor temperatureSensor;
+    private final tryobs_TempSens temperatureSensor;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //  Constructor + initialization
-    public TemperatureSensorResource(String name, TemperatureSensor temperatureSensor) {
+    public tryobs_TempSensRes(String name, tryobs_TempSens temperatureSensor) {
         super(name);
         getAttributes().setTitle(OBJECT_TITLE);
         this.gson = new Gson();
 
         this.temperatureSensor = temperatureSensor;
+        this.temperatureSensor.setListener(this);
+
+        //  Start observation relationship
+        setObservable(true);
+        setObserveType(CoAP.Type.CON);
+    }
+
+    // This method is called whenever the TemperatureSensor's state changes
+    public void onTemperatureChanged(double temp) {
+        changed();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -34,10 +42,8 @@ public class TemperatureSensorResource extends CoapResource {
     public void handleGET(CoapExchange exchange) {
         try
         {
-            //  Already updated by MotorActuator.startPlan()
-
             //  Serialize
-            String responseBody = this.gson.toJson(this.temperatureSensor);
+            String responseBody = this.gson.toJson(this.temperatureSensor, TemperatureSensor.class);
             exchange.respond(CoAP.ResponseCode.CONTENT, responseBody, MediaTypeRegistry.APPLICATION_JSON);
         }
         catch (Exception e)
@@ -45,5 +51,6 @@ public class TemperatureSensorResource extends CoapResource {
             exchange.respond(CoAP.ResponseCode.INTERNAL_SERVER_ERROR);
         }
     }
+
 
 }

@@ -178,19 +178,19 @@ public class WmGUI {
     public static void SwitchExecuteVerb(int selectedVerb, int offServer, String eventualProgram) {
         switch (selectedVerb) {
             //  POST motor (start)
-            case 1 -> CoapPostClientProcess.run("motor", multipleServerPort + offServer);
+            case 1 -> CoapPostClient.run("motor", multipleServerPort + offServer);
             //  GET motor
-            case 2 -> CoapGetClientProcess.run("motor", multipleServerPort + offServer);
+            case 2 -> CoapGetClient.run("motor", multipleServerPort + offServer);
             //  GET temperature
-            case 3 -> CoapGetClientProcess.run("temperature", multipleServerPort + offServer);
+            case 3 -> CoapGetClient.run("temperature", multipleServerPort + offServer);
             //  GET weight
-            case 4 -> CoapGetClientProcess.run("weight", multipleServerPort + offServer);
+            case 4 -> CoapGetClient.run("weight", multipleServerPort + offServer);
             //  PUT motor
-            case 5 -> CoapPutClientProcess.run("motor", multipleServerPort + offServer, eventualProgram);
+            case 5 -> CoapPutClient.run("motor", multipleServerPort + offServer, eventualProgram);
             //  PUT motor (stop)
-            case 6 -> CoapStopClientProcess.run(multipleServerPort + offServer);
+            case 6 -> CoapStopClient.run(multipleServerPort + offServer);
             //  GET global history
-            case 7 -> CoapHistoryClientProcess.run(multipleServerPort);
+            case 7 -> CoapHistoryClient.run(multipleServerPort);
         }
     }
 

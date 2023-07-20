@@ -7,7 +7,6 @@ import javafx.scene.control.*;
 import unimore.iot.WmGUI;
 import unimore.iot.WmMultipleServer;
 import unimore.iot.client.*;
-import unimore.iot.manager.DataCollector;
 import unimore.iot.request.PlanRequest;
 
 import java.net.URL;
@@ -49,7 +48,7 @@ public class HelloController implements Initializable {
 
     ////
 
-    private CoapObserveClientProcess coapObserveClient = new CoapObserveClientProcess();
+    private CoapObserveClient coapObserveClient = new CoapObserveClient();
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -143,43 +142,43 @@ public class HelloController implements Initializable {
                     "Completa i 2 bottoni CREATE e SELECT",
                     "Completa la creazione dei server(s)");
         else {
-            terminal.setText(CoapPostClientProcess.run("motor", WmMultipleServer.getBasePort() + serverChoice));
+            terminal.setText(CoapPostClient.run("motor", WmMultipleServer.getBasePort() + serverChoice));
             //DataCollector.run(WmMultipleServer.getBasePort() + serverChoice, null); //  null -> no output in form TextArea
         }
     }
 
     public void getMotor(ActionEvent event) {
-        terminal.setText(CoapGetClientProcess.run("motor", WmMultipleServer.getBasePort() + serverChoice));
+        terminal.setText(CoapGetClient.run("motor", WmMultipleServer.getBasePort() + serverChoice));
     }
 
     public void getTemperature(ActionEvent event) {
-        terminal.setText(CoapGetClientProcess.run("temperature", WmMultipleServer.getBasePort() + serverChoice));
+        terminal.setText(CoapGetClient.run("temperature", WmMultipleServer.getBasePort() + serverChoice));
     }
 
     public void shutMotor(ActionEvent event) {
-        terminal.setText(CoapStopClientProcess.run(WmMultipleServer.getBasePort() + serverChoice));
+        terminal.setText(CoapStopClient.run(WmMultipleServer.getBasePort() + serverChoice));
     }
 
     public void getWeight(ActionEvent event) {
-        terminal.setText(CoapGetClientProcess.run("weight", WmMultipleServer.getBasePort() + serverChoice));
+        terminal.setText(CoapGetClient.run("weight", WmMultipleServer.getBasePort() + serverChoice));
     }
 
     public void getDoor(ActionEvent event) {
-        terminal.setText(CoapGetClientProcess.run("door", WmMultipleServer.getBasePort() + serverChoice));
+        terminal.setText(CoapGetClient.run("door", WmMultipleServer.getBasePort() + serverChoice));
     }
 
     public void getHistory(ActionEvent event) {
-        terminal.setText(CoapHistoryClientProcess.run(WmMultipleServer.getBasePort() + serverChoice));
+        terminal.setText(CoapHistoryClient.run(WmMultipleServer.getBasePort() + serverChoice));
     }
 
     public void putPlan(ActionEvent event) throws InterruptedException {
         String planChoiceItem = planChoiceBox.getValue();
         terminal.setText("Running the program...it will take some time\n\n");
-        terminal.appendText(CoapPutClientProcess.run("motor", WmMultipleServer.getBasePort() + serverChoice, planChoiceItem));
+        terminal.appendText(CoapPutClient.run("motor", WmMultipleServer.getBasePort() + serverChoice, planChoiceItem));
     }
 
     public void openDoor(ActionEvent event) {
-        terminal.setText(CoapPostClientProcess.run("door", WmMultipleServer.getBasePort() + serverChoice));
+        terminal.setText(CoapPostClient.run("door", WmMultipleServer.getBasePort() + serverChoice));
     }
 
     public void startObservation(ActionEvent event) {

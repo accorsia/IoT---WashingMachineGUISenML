@@ -1,10 +1,9 @@
 package unimore.iot.client;
-import javafx.application.Platform;
 import javafx.scene.control.TextArea;
 import org.eclipse.californium.core.*;
 import org.eclipse.californium.core.coap.Request;
 
-public class CoapObserveClientProcess {
+public class CoapObserveClient {
 
     private CoapObserveRelation relation = null;
     private String target;

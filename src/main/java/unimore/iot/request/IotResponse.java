@@ -1,11 +1,9 @@
 package unimore.iot.request;
 
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.Gson;
 
 public class IotResponse {
 
-    private static Gson gson = new Gson();
     @SerializedName("status_code")
     private int statusCode;
 

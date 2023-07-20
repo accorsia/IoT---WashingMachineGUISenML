@@ -9,12 +9,10 @@ import org.eclipse.californium.elements.exception.ConnectorException;
 
 import java.io.IOException;
 
+public class CoapPostClient {
 
-public class CoapStopClientProcess {
-    public static String run(int serverPort) {
-        String passedResource = "motor";    //  forced -> no need for parameters
-
-        System.out.println("\n--- [PUT] Stopping: '" + passedResource + "' ---\n");
+    public static String run(String passedResource, int serverPort) {
+        System.out.println("\n--- [POST] Starting " + passedResource + " ---\n");
 
         //  Set Endpoint with right port
         String COAP_ENDPOINT = "coap://127.0.0.1:" + serverPort + "/";
@@ -22,11 +20,7 @@ public class CoapStopClientProcess {
         CoapClient coapClient = new CoapClient(COAP_ENDPOINT + passedResource);  //  client
 
         //  Request
-        Request request = new Request(CoAP.Code.PUT);
-
-        //  Set payload
-        String requestPayload = "stop";
-        request.setPayload(requestPayload.getBytes());
+        Request request = new Request(CoAP.Code.POST);
         request.setConfirmable(true);
 
         try
@@ -34,7 +28,7 @@ public class CoapStopClientProcess {
             //  Response
             CoapResponse coapResp = coapClient.advanced(request);
 
-            String prettyPrint = "==[ PUT (stop) ]====================================================\n" + Utils.prettyPrint(coapResp);
+            String prettyPrint = "==[ POST ]====================================================\n" + Utils.prettyPrint(coapResp);
             System.out.println(prettyPrint);
             return prettyPrint;
         }
@@ -44,5 +38,4 @@ public class CoapStopClientProcess {
 
         return null;
     }
-
 }

@@ -1,12 +1,11 @@
 package unimore.iot.manager;
 
 import javafx.scene.control.TextArea;
-import unimore.iot.client.CoapObserveClientProcess;
+import unimore.iot.client.CoapObserveClient;
 
 public class DataCollector {
     public static void run(int serverPort, TextArea textArea) {
-        CoapObserveClientProcess coapObserveClient = new CoapObserveClientProcess();
-
+        CoapObserveClient coapObserveClient = new CoapObserveClient();
 
         coapObserveClient.run("motor", serverPort, textArea);
         coapObserveClient.run("door", serverPort, textArea);
