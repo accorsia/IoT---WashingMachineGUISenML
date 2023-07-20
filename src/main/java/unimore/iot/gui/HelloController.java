@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import unimore.iot.WmGUI;
 import unimore.iot.WmMultipleServer;
 import unimore.iot.client.*;
+import unimore.iot.manager.DataCollector;
 import unimore.iot.request.PlanRequest;
 
 import java.net.URL;
@@ -169,6 +170,7 @@ public class HelloController implements Initializable {
 
     public void startObservation() {
         CoapObserveClientProcess.run("motor", WmMultipleServer.getBasePort() + serverChoice, terminalObs);
+        DataCollector.run(WmMultipleServer.getBasePort() + serverChoice, terminalObs);
     }
 
 }
