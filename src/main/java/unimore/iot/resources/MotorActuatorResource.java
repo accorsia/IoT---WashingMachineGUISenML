@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import unimore.iot.model.MotorActuator;
 import unimore.iot.request.PlanRequest;
 import unimore.iot.utilities.Deb;
+import unimore.iot.request.IotResponse;
 import unimore.iot.utilities.PlanHistory;
 
 public class MotorActuatorResource extends CoapResource {
@@ -61,13 +62,13 @@ public class MotorActuatorResource extends CoapResource {
         {
             //  Motor already running --> No need to start it again
             if (this.motorActuator.getRunning()) {
-                exchange.respond(CoAP.ResponseCode.CONFLICT, "Motor already running --> No need to start it again");
+                exchange.respond(CoAP.ResponseCode.CONFLICT, this.gson.toJson(new IotResponse(CoAP.ResponseCode.CONFLICT.value, "Motor already running -> No need to start it again")), MediaTypeRegistry.APPLICATION_JSON);
             }
             else
             {
                 this.motorActuator.startMotor();  //  turn on the motor
                 changed();
-                exchange.respond(CoAP.ResponseCode.CHANGED, "Motor ON");
+                exchange.respond(CoAP.ResponseCode.CHANGED, this.gson.toJson(new IotResponse(CoAP.ResponseCode.CHANGED.value, "Motor ON")), MediaTypeRegistry.APPLICATION_JSON);
             }
         }
         catch (Exception e)
@@ -81,8 +82,7 @@ public class MotorActuatorResource extends CoapResource {
 
         //  (Double check: already checked) check if the motor is running before setting a program
         if (!this.motorActuator.getRunning())
-           exchange.respond(CoAP.ResponseCode.PRECONDITION_FAILED, "Motor still OFF --> It needs to be started with a POST before " +
-                    "setting a program");
+            exchange.respond(CoAP.ResponseCode.PRECONDITION_FAILED, "Motor still OFF -> It needs to be started with a POST before setting a program");
         else {
             try
             {
@@ -94,7 +94,7 @@ public class MotorActuatorResource extends CoapResource {
                     String stopMessage = "Motor OFF";
                     System.out.println(Deb.debHelp() + "Stopping engine..." + stopMessage);
                     this.motorActuator.interrupt();
-                    exchange.respond(CoAP.ResponseCode.CONTENT, stopMessage);
+                    exchange.respond(CoAP.ResponseCode.CONTENT, this.gson.toJson(new IotResponse(CoAP.ResponseCode.CONTENT.value, stopMessage)), MediaTypeRegistry.APPLICATION_JSON);
                 }
                 //  PUT program condition
                 else
@@ -107,53 +107,47 @@ public class MotorActuatorResource extends CoapResource {
                             case PlanRequest.LANA -> {
                                 this.planHistory.increaseLana(this.motorActuator);  //  update history
                                 this.motorActuator.startPlan(PlanRequest.LANA);  //  start plan
-                                exchange.respond(CoAP.ResponseCode.CHANGED, "Washing Machine running: "+payloadRequest.getPlan());
+                                exchange.respond(CoAP.ResponseCode.CHANGED, this.gson.toJson(new IotResponse(CoAP.ResponseCode.CHANGED.value, "Washing Machine running: " + payloadRequest.getPlan())), MediaTypeRegistry.APPLICATION_JSON);
                                 changed();
                             }
                             case PlanRequest.RISCIACQUO -> {
                                 this.planHistory.increaseRisciacquo(this.motorActuator);  //  update history
                                 this.motorActuator.startPlan(PlanRequest.RISCIACQUO);  //  start plan
-                                exchange.respond(CoAP.ResponseCode.CHANGED, "Washing Machine running: "+payloadRequest.getPlan());
+                                exchange.respond(CoAP.ResponseCode.CHANGED, this.gson.toJson(new IotResponse(CoAP.ResponseCode.CHANGED.value, "Washing Machine running: " + payloadRequest.getPlan())), MediaTypeRegistry.APPLICATION_JSON);
                                 changed();
                             }
                             case PlanRequest.SINTETICI -> {
                                 this.planHistory.increaseSintetici(this.motorActuator);  //  update history
                                 this.motorActuator.startPlan(PlanRequest.SINTETICI);  //  start plan
-                                exchange.respond(CoAP.ResponseCode.CHANGED, "Washing Machine running: "+payloadRequest.getPlan());
+                                exchange.respond(CoAP.ResponseCode.CHANGED, this.gson.toJson(new IotResponse(CoAP.ResponseCode.CHANGED.value, "Washing Machine running: " + payloadRequest.getPlan())), MediaTypeRegistry.APPLICATION_JSON);
                                 changed();
                             }
                             case PlanRequest.COTONE -> {
                                 this.planHistory.increaseCotone(this.motorActuator);  //  update history
                                 this.motorActuator.startPlan(PlanRequest.COTONE);  //  start plan
-                                exchange.respond(CoAP.ResponseCode.CHANGED, "Washing Machine running: "+payloadRequest.getPlan());
-                                changed();;
+                                exchange.respond(CoAP.ResponseCode.CHANGED, this.gson.toJson(new IotResponse(CoAP.ResponseCode.CHANGED.value, "Washing Machine running: " + payloadRequest.getPlan())), MediaTypeRegistry.APPLICATION_JSON);
+                                changed();
                             }
                             case PlanRequest.DELICATI -> {
                                 this.planHistory.increaseDelicati(this.motorActuator);  //  update history
                                 this.motorActuator.startPlan(PlanRequest.DELICATI);  //  start plan
-                                exchange.respond(CoAP.ResponseCode.CHANGED, "Washing Machine running: "+payloadRequest.getPlan());
+                                exchange.respond(CoAP.ResponseCode.CHANGED, this.gson.toJson(new IotResponse(CoAP.ResponseCode.CHANGED.value, "Washing Machine running: " + payloadRequest.getPlan())), MediaTypeRegistry.APPLICATION_JSON);
                                 changed();
                             }
                             default -> {
-                                exchange.respond(CoAP.ResponseCode.BAD_REQUEST, "ERROR selecting the program in MotorActuatorResource - handlePUT");
+                                exchange.respond(CoAP.ResponseCode.BAD_REQUEST, this.gson.toJson(new IotResponse(CoAP.ResponseCode.BAD_REQUEST.value, "ERROR selecting the program in MotorActuatorResource - handlePUT")), MediaTypeRegistry.APPLICATION_JSON);
                             }
 
                         }
                     }
                     //  Empty payload --> no program selected
                     else {
-                        exchange.respond(CoAP.ResponseCode.BAD_REQUEST, "ERROR in selected program");
+                        exchange.respond(CoAP.ResponseCode.BAD_REQUEST, this.gson.toJson(new IotResponse(CoAP.ResponseCode.BAD_REQUEST.value, "ERROR in selected program")), MediaTypeRegistry.APPLICATION_JSON);
                     }
                 }
-
-
-
             } catch (Exception e) {
                 exchange.respond(CoAP.ResponseCode.INTERNAL_SERVER_ERROR);
             }
         }
-
     }
-
-
 }

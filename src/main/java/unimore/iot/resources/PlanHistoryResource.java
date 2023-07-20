@@ -1,6 +1,7 @@
 package unimore.iot.resources;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.core.coap.CoAP;
 import org.eclipse.californium.core.coap.MediaTypeRegistry;
@@ -8,6 +9,7 @@ import org.eclipse.californium.core.server.resources.CoapExchange;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import unimore.iot.model.MotorActuator;
+import unimore.iot.serialization.SenMLRecord;
 import unimore.iot.utilities.PlanHistory;
 import unimore.iot.utilities.SingleWash;
 
@@ -18,12 +20,12 @@ public class PlanHistoryResource extends CoapResource {
     private static final String OBJECT_TITLE = "Plan History";
     private final Gson gson;
 
-    private final LinkedList<String> planHistory; //  list: all server machines history combined
+    private final LinkedList<SenMLRecord> planHistory; //  list: all server machines history combined
 
     public PlanHistoryResource(String name) {
         super(name);
         getAttributes().setTitle(OBJECT_TITLE);
-        this.gson = new Gson();
+        this.gson = new GsonBuilder().disableHtmlEscaping().create();;
 
         this.planHistory = PlanHistory.getHistory();
 
@@ -33,14 +35,7 @@ public class PlanHistoryResource extends CoapResource {
     public void handleGET(CoapExchange exchange) {
         try
         {
-            LinkedList<String> des = new LinkedList<>();
-
-            for(String val: this.planHistory)
-                des.add(this.gson.fromJson(val, SingleWash.class).toString());
-
-            //  return JSON representation of History (LinkedList<String>)
             String responseBody = this.gson.toJson(this.planHistory);
-            responseBody = this.gson.toJson(des);
             exchange.respond(CoAP.ResponseCode.CONTENT, responseBody, MediaTypeRegistry.APPLICATION_JSON);
         }
         catch (Exception e)

@@ -18,6 +18,7 @@ import java.util.ResourceBundle;
 import static unimore.iot.utilities.Deb.*;
 
 public class HelloController implements Initializable {
+
     @FXML
 
     //  default: -1 --> if during the form execution they're still -1 --> user input failed\invalid
@@ -44,6 +45,12 @@ public class HelloController implements Initializable {
     public Button startMBtn;
 
     public ChoiceBox<String> planChoiceBox;
+    public ChoiceBox<String> tgtChoiceBox;
+
+    ////
+
+    private CoapObserveClientProcess coapObserveClient = new CoapObserveClientProcess();
+
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -72,7 +79,14 @@ public class HelloController implements Initializable {
         planItems.add(PlanRequest.DELICATI);
         planItems.add(PlanRequest.RISCIACQUO);
 
+        ArrayList<String> tgtItems = new ArrayList<>();
+        tgtItems.add("motor");
+        tgtItems.add("door");
+        tgtItems.add("temperature");
+        tgtItems.add("weight");
+
         planChoiceBox.getItems().addAll(planItems);
+        tgtChoiceBox.getItems().addAll(tgtItems);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -130,7 +144,7 @@ public class HelloController implements Initializable {
                     "Completa la creazione dei server(s)");
         else {
             terminal.setText(CoapPostClientProcess.run("motor", WmMultipleServer.getBasePort() + serverChoice));
-            startObservation();
+            //DataCollector.run(WmMultipleServer.getBasePort() + serverChoice, null); //  null -> no output in form TextArea
         }
     }
 
@@ -168,9 +182,10 @@ public class HelloController implements Initializable {
         terminal.setText(CoapPostClientProcess.run("door", WmMultipleServer.getBasePort() + serverChoice));
     }
 
-    public void startObservation() {
-        CoapObserveClientProcess.run("motor", WmMultipleServer.getBasePort() + serverChoice, terminalObs);
-        DataCollector.run(WmMultipleServer.getBasePort() + serverChoice, terminalObs);
+    public void startObservation(ActionEvent event) {
+        String tgtRes = tgtChoiceBox.getValue();
+        coapObserveClient.stopObservation();
+        coapObserveClient.run(tgtRes, WmMultipleServer.getBasePort() + serverChoice, terminalObs);
     }
 
 }

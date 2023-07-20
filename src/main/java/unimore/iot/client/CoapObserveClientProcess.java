@@ -1,15 +1,17 @@
 package unimore.iot.client;
-
+import javafx.application.Platform;
 import javafx.scene.control.TextArea;
 import org.eclipse.californium.core.*;
 import org.eclipse.californium.core.coap.Request;
-import unimore.iot.gui.HelloController;
 
 public class CoapObserveClientProcess {
 
-    public static String run(String passedResource, int serverPort, TextArea textArea) {
-        System.out.println("\n--- Starting to observe '" + passedResource + "' ---\n");
+    private CoapObserveRelation relation = null;
+    private String target;
 
+    public String run(String passedResource, int serverPort, TextArea textArea) {
+        System.out.println("\n--- Starting to observe '" + passedResource + "' ---\n");
+        this.target = passedResource;
         //  Set Endpoint with right port
         String COAP_ENDPOINT = "coap://127.0.0.1:" + serverPort + "/";
 
@@ -22,7 +24,7 @@ public class CoapObserveClientProcess {
 
         //  Observation action
         StringBuilder prettyPrintBuilder = new StringBuilder();
-        CoapObserveRelation relation = client.observe(request, new CoapHandler() {
+        relation = client.observe(request, new CoapHandler() {
             @Override
             public void onLoad(CoapResponse coapResponse) {
                 String prettyPrint = Utils.prettyPrint(coapResponse);
@@ -30,7 +32,9 @@ public class CoapObserveClientProcess {
                 System.out.println("[OBSERVATION]\n");
                 System.out.println(prettyPrint);
 
-                textArea.setText(prettyPrint.replace("Response", "Observation"));
+                if (textArea != null)
+                    textArea.setText(prettyPrint.replace("Response", "Observation"));
+
                 prettyPrintBuilder.append(prettyPrint);
             }
 
@@ -40,22 +44,15 @@ public class CoapObserveClientProcess {
             }
         });
 
-        /*//  Observe the coap resource for 120 seconds then the observing relation is deleted
-        try {
-            Thread.sleep(1200); // Sleep for 120 seconds (120,000 milliseconds)
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        relation.proactiveCancel();*/
         return prettyPrintBuilder.toString(); // Return the accumulated pretty print as a string
     }
 
-    public String customPrettyPrint(String prettyPrint) {
-        int indexTitle = prettyPrint.indexOf("\n");
-        String newTitle = "==[ CoAP Observation ]============================================\n";
-
-        return prettyPrint.replace("Response", "Observation");
-
+    public void stopObservation() {
+        if (relation != null) {
+            System.out.println("--- end of Observation: " + target + "---");
+            relation.proactiveCancel();
+        }
+        else
+            System.out.println("--- No relation with " + target + " to stop ---");
     }
 }

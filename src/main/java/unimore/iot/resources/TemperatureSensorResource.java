@@ -11,11 +11,10 @@ import unimore.iot.model.TemperatureSensor;
 
 public class TemperatureSensorResource extends CoapResource {
 
-    private final static Logger logger = LoggerFactory.getLogger(TemperatureSensorResource.class);
     private static final String OBJECT_TITLE = "TemperatureSensor";
-    private Gson gson;
+    private final Gson gson;
 
-    private TemperatureSensor temperatureSensor;
+    private final TemperatureSensor temperatureSensor;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -26,6 +25,16 @@ public class TemperatureSensorResource extends CoapResource {
         this.gson = new Gson();
 
         this.temperatureSensor = temperatureSensor;
+        this.temperatureSensor.setListener(this);
+
+        //  Start observation relationship
+        setObservable(true);
+        setObserveType(CoAP.Type.CON);
+    }
+
+    // This method is called whenever the TemperatureSensor's state changes
+    public void onTemperatureChanged(double temp) {
+        changed();
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -34,10 +43,8 @@ public class TemperatureSensorResource extends CoapResource {
     public void handleGET(CoapExchange exchange) {
         try
         {
-            //  Already updated by MotorActuator.startPlan()
-
             //  Serialize
-            String responseBody = this.gson.toJson(this.temperatureSensor);
+            String responseBody = this.gson.toJson(this.temperatureSensor, TemperatureSensor.class);
             exchange.respond(CoAP.ResponseCode.CONTENT, responseBody, MediaTypeRegistry.APPLICATION_JSON);
         }
         catch (Exception e)
@@ -45,5 +52,6 @@ public class TemperatureSensorResource extends CoapResource {
             exchange.respond(CoAP.ResponseCode.INTERNAL_SERVER_ERROR);
         }
     }
+
 
 }

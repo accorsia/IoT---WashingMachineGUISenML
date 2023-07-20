@@ -3,9 +3,12 @@ package unimore.iot.utilities;
 import unimore.iot.model.MotorActuator;
 import unimore.iot.request.PlanRequest;
 import com.google.gson.Gson;
+import unimore.iot.serialization.SenMLRecord;
 
 
 import java.util.LinkedList;
+
+import static unimore.iot.serialization.SenMLSerialization.SW2ML;
 
 public class PlanHistory {
 
@@ -19,7 +22,7 @@ public class PlanHistory {
 
     private static int totalCount;
 
-    public static LinkedList<String> history = new LinkedList<>();
+    public static LinkedList<SenMLRecord> history = new LinkedList<>();
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -27,7 +30,7 @@ public class PlanHistory {
         gson = new Gson();
     }
 
-    public static LinkedList<String> getHistory() {
+    public static LinkedList<SenMLRecord> getHistory() {
         return history;
     }
 
@@ -35,7 +38,8 @@ public class PlanHistory {
 
     public void increaseDelicati(MotorActuator currentMotor) {
         SingleWash currentWash = new SingleWash(currentMotor.getId(), System.currentTimeMillis(), PlanRequest.DELICATI, currentMotor.toString());
-        history.add(gson.toJson(currentWash));
+        history.add(SW2ML(currentWash));
+        history.add(SW2ML(currentWash));
 
         delicatiCount++;
         totalCount++;
@@ -43,7 +47,7 @@ public class PlanHistory {
 
     public void increaseSintetici(MotorActuator currentMotor) {
         SingleWash currentWash = new SingleWash(currentMotor.getId(), System.currentTimeMillis(), PlanRequest.SINTETICI, currentMotor.toString());
-        history.add(this.gson.toJson(currentWash));
+        history.add(SW2ML(currentWash));
 
         sinteticiCount++;
         totalCount++;
@@ -51,7 +55,7 @@ public class PlanHistory {
 
     public void increaseCotone(MotorActuator currentMotor) {
         SingleWash currentWash = new SingleWash(currentMotor.getId(), System.currentTimeMillis(), PlanRequest.COTONE, currentMotor.toString());
-        history.add(gson.toJson(currentWash));
+        history.add(SW2ML(currentWash));
 
         cotoneCount++;
         totalCount++;
@@ -59,7 +63,7 @@ public class PlanHistory {
 
     public void increaseLana(MotorActuator currentMotor) {
         SingleWash currentWash = new SingleWash(currentMotor.getId(), System.currentTimeMillis(), PlanRequest.LANA, currentMotor.toString());
-        history.add(gson.toJson(currentWash));
+        history.add(SW2ML(currentWash));
 
         lanaCount++;
         totalCount++;
@@ -67,7 +71,7 @@ public class PlanHistory {
 
     public void increaseRisciacquo(MotorActuator currentMotor) {
         SingleWash currentWash = new SingleWash(currentMotor.getId(), System.currentTimeMillis(), PlanRequest.RISCIACQUO, currentMotor.toString());
-        history.add(gson.toJson(currentWash));
+        history.add(SW2ML(currentWash));
 
         risciacquoCount++;
         totalCount++;
@@ -94,9 +98,9 @@ public class PlanHistory {
 
         sb.append("\n*** Plan log ***\n");
 
-        for(String singleHistoryItem: history)
+        /*for(String singleHistoryItem: history)
             sb.append(singleHistoryItem)
-                    .append("\n");
+                    .append("\n");*/
 
         return sb.toString();
     }

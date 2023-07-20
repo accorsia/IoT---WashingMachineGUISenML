@@ -11,12 +11,13 @@ module unimore.iot {
 
     opens unimore.iot to javafx.fxml;
     opens unimore.iot.request;
-    opens unimore.iot.resources;
-    opens unimore.iot.model;
+    opens unimore.iot.resources to com.google.gson;
+    opens unimore.iot.model to com.google.gson;
     exports unimore.iot;
     //exports unimore.iot.singleVersion;
     //opens unimore.iot.singleVersion to javafx.fxml;
     exports unimore.iot.gui;
     opens unimore.iot.gui to javafx.fxml;
     opens unimore.iot.utilities to com.google.gson;
+    opens unimore.iot.serialization to com.google.gson;
 }
