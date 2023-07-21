@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import unimore.iot.WmGUI;
 import unimore.iot.WmMultipleServer;
 import unimore.iot.client.*;
+import unimore.iot.manager.DataCollector;
 import unimore.iot.request.PlanRequest;
 
 import java.net.URL;
@@ -80,9 +81,9 @@ public class HelloController implements Initializable {
 
         ArrayList<String> tgtItems = new ArrayList<>();
         tgtItems.add("motor");
-        tgtItems.add("door");
+        /*tgtItems.add("door");
         tgtItems.add("temperature");
-        tgtItems.add("weight");
+        tgtItems.add("weight");*/
 
         planChoiceBox.getItems().addAll(planItems);
         tgtChoiceBox.getItems().addAll(tgtItems);
@@ -143,7 +144,7 @@ public class HelloController implements Initializable {
                     "Completa la creazione dei server(s)");
         else {
             terminal.setText(CoapPostClient.run("motor", WmMultipleServer.getBasePort() + serverChoice));
-            //DataCollector.run(WmMultipleServer.getBasePort() + serverChoice, null); //  null -> no output in form TextArea
+            DataCollector.run(WmMultipleServer.getBasePort() + serverChoice, null); //  null -> no output in form TextArea
         }
     }
 
