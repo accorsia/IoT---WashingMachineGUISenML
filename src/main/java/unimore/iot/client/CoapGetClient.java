@@ -20,11 +20,11 @@ public class CoapGetClient {
         //  Set Endpoint with right port
         String COAP_ENDPOINT = "coap://127.0.0.1:" + serverPort + "/";
 
-        CoapClient coapClient = new CoapClient(COAP_ENDPOINT + passedResource);  //  unimore.iot.client
+        CoapClient coapClient = new CoapClient(COAP_ENDPOINT + passedResource);     //  client
 
         //  Request
         Request request = new Request(CoAP.Code.GET);
-        request.setOptions(new OptionSet().setAccept(MediaTypeRegistry.APPLICATION_SENML_JSON));    //  TODO    APPLICATION_JSON -> APPLICATION_JSON_SEML
+        request.setOptions(new OptionSet().setAccept(MediaTypeRegistry.APPLICATION_SENML_JSON));
         request.setConfirmable(true);
 
         try

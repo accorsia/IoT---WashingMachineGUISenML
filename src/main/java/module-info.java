@@ -20,4 +20,6 @@ module unimore.iot {
     opens unimore.iot.gui to javafx.fxml;
     opens unimore.iot.utilities to com.google.gson;
     opens unimore.iot.serialization to com.google.gson;
+    opens unimore.iot.resources.tryobs to com.google.gson;
+    opens unimore.iot.model.tryobs to com.google.gson;
 }

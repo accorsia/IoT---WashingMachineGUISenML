@@ -1,8 +1,7 @@
-package unimore.iot.model;
+package unimore.iot.model.tryobs;
 
 import com.google.gson.annotations.Expose;
-import unimore.iot.resources.TemperatureSensorResource;
-import unimore.iot.resources.tryobs_TempSensRes;
+import unimore.iot.resources.tryobs.tryobs_TempSensRes;
 
 import java.util.Random;
 

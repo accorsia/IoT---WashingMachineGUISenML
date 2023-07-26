@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import unimore.iot.model.TemperatureSensor;
 import unimore.iot.serialization.SenMLRecord;
+import unimore.iot.serialization.SenMLSerialization;
 
 public class TemperatureSensorResource extends CoapResource {
 
@@ -37,17 +38,9 @@ public class TemperatureSensorResource extends CoapResource {
         {
             //  Already updated by MotorActuator.startPlan()
 
-            //  Serialize
-            String responseBody = this.gson.toJson(this.temperatureSensor);
-
-
-
-
-
-
-
-            //String responseBody = this.gson.toJson(senMLRecord);
-            exchange.respond(CoAP.ResponseCode.CONTENT, responseBody, MediaTypeRegistry.APPLICATION_JSON);
+            //  JSON <- SenMLPack(this.temperatureSensor)
+            String responseBody = this.gson.toJson(SenMLSerialization.TemperatureSensor2MLPack(this.temperatureSensor));
+            exchange.respond(CoAP.ResponseCode.CONTENT, responseBody, MediaTypeRegistry.APPLICATION_SENML_JSON);
         }
         catch (Exception e)
         {

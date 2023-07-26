@@ -13,6 +13,7 @@ public class MotorActuator {
     double soap;
     String currentProgram;
     int idMotor;
+    long timestamp;
 
 
     //  Included models
@@ -81,12 +82,16 @@ public class MotorActuator {
         return idMotor;
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public long getTimestamp() {
+        return timestamp;
+    }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //  Start motor off with default: RISCIACQUO
     public void startMotor() {
         setValue(RISCIACQUO);
         this.running = true;    //  turn ON the machine
+        this.timestamp = System.currentTimeMillis();
 
         try
         {

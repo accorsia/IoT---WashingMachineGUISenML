@@ -42,14 +42,16 @@ public class SenMLSerialization {
 //        senMLRecord.setT(this.temperatureSensorDescriptor.getTimestamp());
 
         SenMLPack resPack = new SenMLPack();
-        long timestamp = motorActuator.getTime();
+        long timestamp = motorActuator.getTimestamp();
         String bn = "MotorActuator";
 
         //  [int] rpm
         SenMLRecord rpmRecord = new SenMLRecord();
+        String unit = "1\\min";
+
         rpmRecord.setBn(bn);
         rpmRecord.setN("rpm");
-        rpmRecord.setU("RPM");
+        rpmRecord.setU(unit);
         rpmRecord.setV(motorActuator.getRpm());
         rpmRecord.setT(timestamp);
         resPack.add(rpmRecord);
@@ -73,18 +75,22 @@ public class SenMLSerialization {
 
         //  [double] water
         SenMLRecord waterRecord = new SenMLRecord();
+        unit = "l";
+
         waterRecord.setBn(bn);
         waterRecord.setN("water");
-        waterRecord.setU("L");
+        waterRecord.setU(unit);
         waterRecord.setV(motorActuator.getWater());
         waterRecord.setT(timestamp);
         resPack.add(waterRecord);
 
         //  [double] soap
         SenMLRecord soapRecord = new SenMLRecord();
+        unit = "l";
+
         soapRecord.setBn(bn);
         soapRecord.setN("soap");
-        soapRecord.setU("L");
+        soapRecord.setU(unit);
         soapRecord.setV(motorActuator.getSoap());
         soapRecord.setT(timestamp);
         resPack.add(soapRecord);
@@ -93,7 +99,7 @@ public class SenMLSerialization {
         SenMLRecord currentProgramRecord = new SenMLRecord();
         currentProgramRecord.setBn(bn);
         currentProgramRecord.setN("currentProgram");
-        currentProgramRecord.setVd(motorActuator.getCurrentProgram());
+        currentProgramRecord.setVs(motorActuator.getCurrentProgram());
         currentProgramRecord.setT(timestamp);
         resPack.add(currentProgramRecord);
 
@@ -115,9 +121,11 @@ public class SenMLSerialization {
 
         //  [double] temperature
         SenMLRecord temperatureRecord = new SenMLRecord();
+        String unit = "Cel";
+
         temperatureRecord.setBn(bn);
         temperatureRecord.setN("temperature");
-        temperatureRecord.setU("C");
+        temperatureRecord.setU(unit);
         temperatureRecord.setV(temperatureSensor.getTemperature());
         temperatureRecord.setT(timestamp);
         resPack.add(temperatureRecord);
@@ -133,16 +141,18 @@ public class SenMLSerialization {
         return resPack;
     }
 
-    public static SenMLPack WeightS2MLPack(WeightSensor weightSensor) {
+    public static SenMLPack WeightSensor2MLPack(WeightSensor weightSensor) {
         SenMLPack resPack = new SenMLPack();
         long timestamp = weightSensor.getTimestamp();
         String bn = "WeightSensor";
 
         //  [double] weight
         SenMLRecord weightRecord = new SenMLRecord();
+        String unit = "kg";
+
         weightRecord.setBn(bn);
         weightRecord.setN("weight");
-        weightRecord.setU(weightSensor.getUnit());
+        weightRecord.setU(unit);
         weightRecord.setV(weightSensor.getWeight());
         weightRecord.setT(timestamp);
         resPack.add(weightRecord);

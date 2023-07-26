@@ -1,4 +1,4 @@
-package unimore.iot.resources;
+package unimore.iot.resources.tryobs;
 
 import com.google.gson.Gson;
 import org.eclipse.californium.core.CoapResource;
@@ -6,7 +6,7 @@ import org.eclipse.californium.core.coap.CoAP;
 import org.eclipse.californium.core.coap.MediaTypeRegistry;
 import org.eclipse.californium.core.server.resources.CoapExchange;
 import unimore.iot.model.TemperatureSensor;
-import unimore.iot.model.tryobs_TempSens;
+import unimore.iot.model.tryobs.tryobs_TempSens;
 
 public class tryobs_TempSensRes extends CoapResource {
 

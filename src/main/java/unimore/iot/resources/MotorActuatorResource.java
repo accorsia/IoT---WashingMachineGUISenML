@@ -9,6 +9,7 @@ import org.eclipse.californium.core.server.resources.CoapExchange;
 import unimore.iot.model.MotorActuator;
 import unimore.iot.request.IotRequest;
 import unimore.iot.request.PlanRequest;
+import unimore.iot.serialization.SenMLSerialization;
 import unimore.iot.utilities.Deb;
 import unimore.iot.request.IotResponse;
 import unimore.iot.utilities.PlanHistory;
@@ -44,12 +45,9 @@ public class MotorActuatorResource extends CoapResource {
     public void handleGET(CoapExchange exchange) {
         try
         {
-            String responseBody = this.gson.toJson(this.motorActuator);
-
-            //  TODO    SenMLPack
-            //  1 SenMLRecord per ogni variabile del motor actuator (rmp -> "1/min")
-
-            exchange.respond(CoAP.ResponseCode.CONTENT, responseBody, MediaTypeRegistry.APPLICATION_JSON);
+            //  JSON <- SenMLPack(motorActuator)
+            String responseBody = this.gson.toJson(SenMLSerialization.MotorActuator2MLPack(this.motorActuator));
+            exchange.respond(CoAP.ResponseCode.CONTENT, responseBody, MediaTypeRegistry.APPLICATION_SENML_JSON);
         }
         catch (Exception e)
         {

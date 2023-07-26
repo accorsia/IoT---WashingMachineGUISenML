@@ -83,20 +83,21 @@ public class PlanHistory {
         StringBuilder sb = new StringBuilder();
 
         //  first part
-        sb.append("PlanHistory{" + "delicatiCount=")
+        sb.append("PlanHistory:\n")
+                .append("\n - delicatiCount=")
                 .append(delicatiCount)
-                .append(", sinteticiCount=")
+                .append("\n - sinteticiCount=")
                 .append(sinteticiCount)
-                .append(", cotoneCount=")
+                .append("\n - cotoneCount=")
                 .append(cotoneCount)
-                .append(", lanaCount=")
+                .append("\n - lanaCount=")
                 .append(lanaCount)
-                .append(", risciacquoCount=")
+                .append("\n - risciacquoCount=")
                 .append(risciacquoCount)
-                .append(", totalCount=")
+                .append("\n - totalCount=")
                 .append(totalCount).append("}\n");
 
-        sb.append("\n*** Plan log ***\n");
+        sb.append("\n");
 
         return sb.toString();
     }

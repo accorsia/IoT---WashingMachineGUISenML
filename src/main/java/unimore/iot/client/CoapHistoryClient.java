@@ -6,6 +6,7 @@ import org.eclipse.californium.core.Utils;
 import org.eclipse.californium.core.coap.CoAP;
 import org.eclipse.californium.core.coap.Request;
 import org.eclipse.californium.elements.exception.ConnectorException;
+import unimore.iot.utilities.PlanHistory;
 
 import java.io.IOException;
 
@@ -27,7 +28,11 @@ public class CoapHistoryClient {
             //  Response
             CoapResponse coapResp = coapClient.advanced(request);
 
-            String prettyPrint = "==[ GET (history) ]====================================================\n" + Utils.prettyPrint(coapResp);
+            String prettyPrint = "==[ GET (history) ]====================================================\n";
+            prettyPrint += PlanHistory.getPlanCounter();
+            prettyPrint += Utils.prettyPrint(coapResp);
+            prettyPrint = prettyPrint.replace("},{","},\n{");
+
             System.out.println(prettyPrint);
             return prettyPrint;
         }
