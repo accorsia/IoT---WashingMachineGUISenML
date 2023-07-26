@@ -24,7 +24,7 @@ public class CoapGetClient {
 
         //  Request
         Request request = new Request(CoAP.Code.GET);
-        request.setOptions(new OptionSet().setAccept(MediaTypeRegistry.APPLICATION_JSON));
+        request.setOptions(new OptionSet().setAccept(MediaTypeRegistry.APPLICATION_SENML_JSON));    //  TODO    APPLICATION_JSON -> APPLICATION_JSON_SEML
         request.setConfirmable(true);
 
         try

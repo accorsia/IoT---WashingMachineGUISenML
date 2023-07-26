@@ -7,3 +7,13 @@
 - Input (Plan commands) --> JSON
 - Output (JSON) instead of strings ("Motor is still ON"):
 serialized/deserialized object in JSON format containing ErrorCode, MessageCode.
+
+------------------------------------------------------------------------------------------------------------------------
+
+1) convert JSON for resource ---> SenML REcord
+SenMLPack = n * SenMLRecord
+1 SenMLRecord foreach value of model
+https://www.iana.org/assignments/senml/senml.xhtml --> unità di misura
+Funzione toPAck da implementare in SenMLSerialization.java
+
+2) Convert MEDIA_TYPE from 'JSON' -> 'SENML_JSON': sia quando si invia nele risorse, sia quando si riceve nel client

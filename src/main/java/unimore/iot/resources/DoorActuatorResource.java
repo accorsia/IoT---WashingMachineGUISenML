@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import unimore.iot.model.DoorActuator;
 import unimore.iot.model.MotorActuator;
 import unimore.iot.request.IotResponse;
+import unimore.iot.serialization.SenMLSerialization;
 
 import java.util.Objects;
 
@@ -37,8 +38,9 @@ public class DoorActuatorResource extends CoapResource {
     public void handleGET(CoapExchange exchange) {
         try
         {
-            String responseBody = this.gson.toJson(this.doorActuator);
-            exchange.respond(CoAP.ResponseCode.CONTENT, responseBody, MediaTypeRegistry.APPLICATION_JSON);
+            //  JSON <- SenMLPack(doorActuator)
+            String responseBody = this.gson.toJson(SenMLSerialization.DoorActuator2MLPack(this.doorActuator));
+            exchange.respond(CoAP.ResponseCode.CONTENT, responseBody, MediaTypeRegistry.APPLICATION_SENML_JSON);
         }
         catch (Exception e)
         {

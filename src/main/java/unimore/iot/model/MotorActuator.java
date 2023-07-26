@@ -14,7 +14,8 @@ public class MotorActuator {
     String currentProgram;
     int idMotor;
 
-    //  Included unimore.iot.resources
+
+    //  Included models
     WeightSensor weightSensor;
     TemperatureSensor temperatureSensor;
     DoorActuator doorActuator;
@@ -54,6 +55,30 @@ public class MotorActuator {
 
     public int getId() {
         return this.idMotor;
+    }
+
+    public int getRpm() {
+        return this.rpm;
+    }
+
+    public int getTime() {
+        return time;
+    }
+
+    public double getWater() {
+        return water;
+    }
+
+    public double getSoap() {
+        return soap;
+    }
+
+    public String getCurrentProgram() {
+        return currentProgram;
+    }
+
+    public int getIdMotor() {
+        return idMotor;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

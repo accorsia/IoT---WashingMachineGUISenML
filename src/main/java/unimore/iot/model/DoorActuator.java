@@ -28,6 +28,9 @@ public class DoorActuator {
         return status;
     }
 
+    public int getIdDoor() {
+        return idDoor;
+    }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public void setStatus(String status)

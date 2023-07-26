@@ -27,7 +27,6 @@ public class TemperatureSensor {
     public double measureTemperatureValue() {
         this.temperature = TEMPERATURE_START_VALUE + this.random.nextInt(TEMPERATURE_VALUE_BOND);
         this.timestamp = System.currentTimeMillis();
-
         return temperature;
     }
 
@@ -38,4 +37,15 @@ public class TemperatureSensor {
         return temperature;
     }
 
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public int getIdTemperature() {
+        return idTemperature;
+    }
 }

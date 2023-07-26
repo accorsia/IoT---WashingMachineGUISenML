@@ -46,4 +46,15 @@ public class WeightSensor {
         return weight;
     }
 
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public int getIdWeight() {
+        return idWeight;
+    }
 }

@@ -8,6 +8,7 @@ import org.eclipse.californium.core.server.resources.CoapExchange;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import unimore.iot.model.TemperatureSensor;
+import unimore.iot.serialization.SenMLRecord;
 
 public class TemperatureSensorResource extends CoapResource {
 
@@ -38,6 +39,14 @@ public class TemperatureSensorResource extends CoapResource {
 
             //  Serialize
             String responseBody = this.gson.toJson(this.temperatureSensor);
+
+
+
+
+
+
+
+            //String responseBody = this.gson.toJson(senMLRecord);
             exchange.respond(CoAP.ResponseCode.CONTENT, responseBody, MediaTypeRegistry.APPLICATION_JSON);
         }
         catch (Exception e)

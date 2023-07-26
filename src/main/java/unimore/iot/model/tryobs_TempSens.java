@@ -24,7 +24,7 @@ public class tryobs_TempSens {
     @Expose
     int idTemperature;
 
-    private tryobs_TempSensRes listener; //  resource listening for change of sensor statsu
+    private tryobs_TempSensRes listener; //  resource listening for change of sensor status
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
