@@ -4,6 +4,8 @@ import org.eclipse.californium.core.CoapClient;
 import org.eclipse.californium.core.CoapResponse;
 import org.eclipse.californium.core.Utils;
 import org.eclipse.californium.core.coap.CoAP;
+import org.eclipse.californium.core.coap.MediaTypeRegistry;
+import org.eclipse.californium.core.coap.OptionSet;
 import org.eclipse.californium.core.coap.Request;
 import org.eclipse.californium.elements.exception.ConnectorException;
 import unimore.iot.utilities.PlanHistory;
@@ -21,6 +23,7 @@ public class CoapHistoryClient {
 
         //  Request
         Request request = new Request(CoAP.Code.GET);
+        request.setOptions(new OptionSet().setAccept(MediaTypeRegistry.APPLICATION_SENML_JSON));
         request.setConfirmable(true);
 
         try
@@ -32,6 +35,7 @@ public class CoapHistoryClient {
             prettyPrint += PlanHistory.getPlanCounter();
             prettyPrint += Utils.prettyPrint(coapResp);
             prettyPrint = prettyPrint.replace("},{","},\n{");
+            prettyPrint = prettyPrint.replace("],[","],\n[");
 
             System.out.println(prettyPrint);
             return prettyPrint;

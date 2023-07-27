@@ -4,6 +4,7 @@ import com.google.gson.GsonBuilder;
 import unimore.iot.model.MotorActuator;
 import unimore.iot.request.PlanRequest;
 import com.google.gson.Gson;
+import unimore.iot.serialization.SenMLPack;
 import unimore.iot.serialization.SenMLRecord;
 
 
@@ -23,7 +24,7 @@ public class PlanHistory {
 
     private static int totalCount;
 
-    public static LinkedList<SenMLRecord> history = new LinkedList<>();
+    public static LinkedList<SenMLPack> history = new LinkedList<>();
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -31,7 +32,7 @@ public class PlanHistory {
         gson = new GsonBuilder().disableHtmlEscaping().create();
     }
 
-    public static LinkedList<SenMLRecord> getHistory() {
+    public static LinkedList<SenMLPack> getHistory() {
         return history;
     }
 

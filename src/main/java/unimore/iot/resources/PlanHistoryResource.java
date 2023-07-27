@@ -8,6 +8,7 @@ import org.eclipse.californium.core.coap.MediaTypeRegistry;
 import org.eclipse.californium.core.server.resources.CoapExchange;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import unimore.iot.serialization.SenMLPack;
 import unimore.iot.serialization.SenMLRecord;
 import unimore.iot.utilities.PlanHistory;
 
@@ -18,7 +19,7 @@ public class PlanHistoryResource extends CoapResource {
     private static final String OBJECT_TITLE = "Plan History";
     private final Gson gson;
 
-    private final LinkedList<SenMLRecord> planHistory; //  list: all server machines history combined
+    private final LinkedList<SenMLPack> planHistory; //  list: all server machines history combined
 
     public PlanHistoryResource(String name) {
         super(name);
@@ -33,6 +34,7 @@ public class PlanHistoryResource extends CoapResource {
     public void handleGET(CoapExchange exchange) {
         try
         {
+            //  JSON <- ArrayList<SenMLRecord>
             String responseBody = this.gson.toJson(this.planHistory);
             exchange.respond(CoAP.ResponseCode.CONTENT, responseBody, MediaTypeRegistry.APPLICATION_SENML_JSON);
         }

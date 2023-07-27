@@ -9,7 +9,7 @@ import unimore.iot.utilities.SingleWash;
 
 public class SenMLSerialization {
 
-    public static SenMLRecord SW2ML(SingleWash singleWash) {
+    public static SenMLPack SW2ML(SingleWash singleWash) {
         SenMLPack resPack = new SenMLPack();
         SenMLRecord senMLRecord = new SenMLRecord();
 
@@ -19,7 +19,7 @@ public class SenMLSerialization {
         senMLRecord.setVs(singleWash.getMotorActuatorState());
 
         resPack.add(senMLRecord);
-        return senMLRecord;
+        return resPack;
     }
 
     public static SenMLPack MotorActuator2MLPack(MotorActuator motorActuator) {
