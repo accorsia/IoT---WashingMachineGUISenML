@@ -5,12 +5,11 @@ import unimore.iot.model.MotorActuator;
 import unimore.iot.request.PlanRequest;
 import com.google.gson.Gson;
 import unimore.iot.serialization.SenMLPack;
-import unimore.iot.serialization.SenMLRecord;
 
 
 import java.util.LinkedList;
 
-import static unimore.iot.serialization.SenMLSerialization.SW2ML;
+import static unimore.iot.serialization.SenMLSerialization.SingleWash2MLPack;
 
 public class PlanHistory {
 
@@ -40,7 +39,7 @@ public class PlanHistory {
 
     public void increaseDelicati(MotorActuator currentMotor) {
         SingleWash currentWash = new SingleWash(currentMotor.getId(), System.currentTimeMillis(), PlanRequest.DELICATI, currentMotor.toString());
-        history.add(SW2ML(currentWash));
+        history.add(SingleWash2MLPack(currentWash));
 
         delicatiCount++;
         totalCount++;
@@ -48,7 +47,7 @@ public class PlanHistory {
 
     public void increaseSintetici(MotorActuator currentMotor) {
         SingleWash currentWash = new SingleWash(currentMotor.getId(), System.currentTimeMillis(), PlanRequest.SINTETICI, currentMotor.toString());
-        history.add(SW2ML(currentWash));
+        history.add(SingleWash2MLPack(currentWash));
 
         sinteticiCount++;
         totalCount++;
@@ -56,7 +55,7 @@ public class PlanHistory {
 
     public void increaseCotone(MotorActuator currentMotor) {
         SingleWash currentWash = new SingleWash(currentMotor.getId(), System.currentTimeMillis(), PlanRequest.COTONE, currentMotor.toString());
-        history.add(SW2ML(currentWash));
+        history.add(SingleWash2MLPack(currentWash));
 
         cotoneCount++;
         totalCount++;
@@ -64,7 +63,7 @@ public class PlanHistory {
 
     public void increaseLana(MotorActuator currentMotor) {
         SingleWash currentWash = new SingleWash(currentMotor.getId(), System.currentTimeMillis(), PlanRequest.LANA, currentMotor.toString());
-        history.add(SW2ML(currentWash));
+        history.add(SingleWash2MLPack(currentWash));
 
         lanaCount++;
         totalCount++;
@@ -72,7 +71,7 @@ public class PlanHistory {
 
     public void increaseRisciacquo(MotorActuator currentMotor) {
         SingleWash currentWash = new SingleWash(currentMotor.getId(), System.currentTimeMillis(), PlanRequest.RISCIACQUO, currentMotor.toString());
-        history.add(SW2ML(currentWash));
+        history.add(SingleWash2MLPack(currentWash));
 
         risciacquoCount++;
         totalCount++;

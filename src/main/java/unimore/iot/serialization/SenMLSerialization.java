@@ -9,7 +9,7 @@ import unimore.iot.utilities.SingleWash;
 
 public class SenMLSerialization {
 
-    public static SenMLPack SW2ML(SingleWash singleWash) {
+    public static SenMLPack SingleWash2MLPack(SingleWash singleWash) {
         SenMLPack resPack = new SenMLPack();
         SenMLRecord senMLRecord = new SenMLRecord();
 

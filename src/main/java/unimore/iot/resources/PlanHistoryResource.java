@@ -34,7 +34,7 @@ public class PlanHistoryResource extends CoapResource {
     public void handleGET(CoapExchange exchange) {
         try
         {
-            //  JSON <- ArrayList<SenMLRecord>
+            //  JSON <- ArrayList<SenMLPack>
             String responseBody = this.gson.toJson(this.planHistory);
             exchange.respond(CoAP.ResponseCode.CONTENT, responseBody, MediaTypeRegistry.APPLICATION_SENML_JSON);
         }
