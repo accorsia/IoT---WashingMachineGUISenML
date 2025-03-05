@@ -41,7 +41,3 @@ The Smart Washing Machine IoT Simulator is a Java-based project that demonstrate
   Utilize the provided interface buttons to start the motor, apply different washing programs, and observe sensor data in real time.
 - **Observing Data:**  
   Start sensor observation to monitor changes (e.g., motor status, door status) using the CoAP Observe functionality.
-
-## Contributing
-
-Contributions are welcome! Feel free to open issues or submit pull requests for bug fixes and improvements.
